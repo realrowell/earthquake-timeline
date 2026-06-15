@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>Earthquake Timeline Viewer</title>
+
+<link
+rel="stylesheet"
+href="https://unpkg.com/leaflet/dist/leaflet.css"
+/>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+}
+
+#map{
+    height:90vh;
+}
+
+.controls{
+    padding:10px;
+    background:white;
+}
+
+.info{
+    font-size:18px;
+    font-weight:bold;
+}
+
+.dashboard{
+    display:flex;
+    gap:20px;
+    padding:10px;
+    background:#111;
+    color:white;
+    font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="controls">
+
+    <button id="playBtn">▶ Play</button>
+
+    <input
+        type="range"
+        id="slider"
+        min="0"
+        max="0"
+        value="0"
+        style="width:300px"
+    >
+
+    <span class="info" id="currentTime"></span>
+
+</div>
+<div class="dashboard">
+    <div>🌋 Earthquakes: <span id="count">0</span></div>
+    <div>⚡ Strongest: <span id="maxMag">-</span></div>
+    <div>📏 Deepest: <span id="maxDepth">-</span></div>
+    <div>⏱ From Jun. 1 to Jun. 15, 2026 <span id="latest">-</span></div>
+</div>
+
+<div id="map"></div>
+
+<canvas id="magChart" height="60"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
