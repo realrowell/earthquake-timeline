@@ -13,6 +13,9 @@ const timeLabel = document.getElementById("currentTime");
 const ONE_DAY = 1000 * 60 * 60 * 24;
 const ONE_HOUR = 1000 * 60 * 60;
 
+const START_ZOOM = 5;
+const END_ZOOM = 8;
+
 let startTime;
 let endTime;
 let currentTime;
@@ -78,7 +81,8 @@ fetch("./earthquakes.json")
         slider.value = 0;
 
         renderAtTime(currentTime);
-        updateDashboard();
+        updateDashboard(); 
+        
     });
 
 function depthColor(depth) {
@@ -151,6 +155,8 @@ function renderAtTime(currentTime) {
             hour: "2-digit",
             minute: "2-digit"
         });
+
+        updateZoom(currentTime);
 }
 
 // 🎚️ SLIDER (now time-based)
@@ -202,3 +208,29 @@ document.getElementById("playBtn")
         playing = false;
     }
 });
+
+// function cinematicZoom(startZoom, endZoom, duration = 3) {
+
+//     // set initial zoom instantly
+//     map.setZoom(startZoom);
+
+//     setTimeout(() => {
+//         map.flyTo(map.getCenter(), endZoom, {
+//             duration: duration,
+//             easeLinearity: 0.25
+//         });
+//     }, 300);
+// }
+
+function updateZoom(currentTime) {
+
+    const progress =
+        (currentTime - startTime) / (endTime - startTime);
+
+    const zoom = START_ZOOM + progress * (END_ZOOM - START_ZOOM);
+
+    map.flyTo(map.getCenter(), zoom, {
+        duration: 0.6,
+        easeLinearity: 0.25
+    });
+}
