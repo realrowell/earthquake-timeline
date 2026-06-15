@@ -156,7 +156,7 @@ function renderAtTime(currentTime) {
             minute: "2-digit"
         });
 
-        // updateZoom(currentTime);
+        updateZoom(currentTime);
 }
 
 // 🎚️ SLIDER (now time-based)
