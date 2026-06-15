@@ -48,7 +48,7 @@ function parsePHDate(str) {
     );
 }
 
-fetch("./public/earthquakes.json")
+fetch("./earthquakes.json")
     .then(res => res.json())
     .then(data => {
 
