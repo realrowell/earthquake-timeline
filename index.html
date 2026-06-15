@@ -2,8 +2,10 @@
 <html>
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Earthquake Timeline Viewer</title>
+<link rel="icon" type="image/x-icon" href="public/favicon.ico">
 
 <link
 rel="stylesheet"
@@ -15,15 +17,26 @@ href="https://unpkg.com/leaflet/dist/leaflet.css"
 body{
     margin:0;
     font-family:Arial;
+    background: #111;
+    color: white;
 }
 
-#map{
-    height:90vh;
+#map {
+    height: 80vh;
 }
 
-.controls{
-    padding:10px;
-    background:white;
+@media (max-width: 768px) {
+    #map {
+        height: 70vh;
+    }
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
 }
 
 .info{
@@ -31,14 +44,67 @@ body{
     font-weight:bold;
 }
 
-.dashboard{
-    display:flex;
-    gap:20px;
-    padding:10px;
-    background:#111;
-    color:white;
-    font-size:14px;
+.dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    background: #111;
+    color: white;
+    font-size: 14px;
 }
+.dashboard div {
+    background: #222;
+    padding: 8px 12px;
+    border-radius: 8px;
+    flex: 1;
+    min-width: 140px;
+}
+#slider {
+    flex: 1;
+    min-width: 150px;
+}
+
+button {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+    .dashboard {
+        font-size: 12px;
+    }
+
+    button {
+        font-size: 13px;
+    }
+}
+
+.map-logo {
+  margin: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 6px 8px;
+  border-radius: 6px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  color: black;
+}
+
+.map-logo img {
+  height: 40px; /* adjust as needed */
+  display: block;
+}
+
+#logo-text{
+    display: flex;
+    flex-direction: row;
+} 
+
 </style>
 </head>
 
@@ -73,8 +139,29 @@ body{
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script> 
 <script src="app.js"></script>
 
+<script>
+    const logoControl = L.control({ position: 'bottomleft' });
+
+    logoControl.onAdd = function (map) {
+    const div = L.DomUtil.create('div', 'map-logo');
+
+    div.innerHTML = `
+        <img src="public/app_icon.png" alt="Logo">
+        <div>
+            <div><strong>Earthquake Timeline Viewer</strong></div>
+            <div>
+                Powered by <a href="https://www.facebook.com/syncpro.solution" target="_blank">SyncPro - IT Solutions</a>
+            </div>
+        </div>
+    `;
+
+    return div;
+    };
+
+    logoControl.addTo(map);
+</script>
 </body>
 </html>
